@@ -2,19 +2,33 @@
 //import { createRoot } from "react-dom/client";
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
-//import "./styles.css";
+import "./styles.css";
 //import App from "./App";
 
+const useInput = (initialValue, validator) => {
+  const [value, setValue] = useState(initialValue);
+  const onChange = (event) => {
+    const {
+      target: {value}
+    } = event;
+    let willUpdate = true;
+    if (typeof validator === "function") {
+      willUpdate = validator(value);  //value의 유효성 검사
+    }
+    if (willUpdate) {
+      setValue(value);
+    };
+  };
+  return {value, onChange};
+}
+
 const App = () => {
-  const [item, setItem] = useState(1);
-  const incrementItem = () => setItem(item + 1); //item 값을 가져와 +1
-  const decrementItem = () => setItem(item - 1); //item 값을 가져와 -1
+  const maxLen = value => !value.includes("@"); //@가 포함되지 않으면 업데이트
+  const name = useInput("Mr. ", maxLen);
   return (
     <div className="App">
-      <h1>Hello {item}</h1>
-      <h2>Start editing to see some magic happen!</h2>
-      <button onClick={incrementItem}>Increment</button>
-      <button onClick={decrementItem}>Decrement</button>
+      <h1>Hello</h1>
+      <input placeholder="Name" {...name}></input>
     </div>
   );
 };
