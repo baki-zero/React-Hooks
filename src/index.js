@@ -1,68 +1,41 @@
-//import { StrictMode } from "react";
-//import { createRoot } from "react-dom/client";
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
-import "./styles.css";
-//import App from "./App";
+import { StrictMode } from "react";
 
-const useInput = (initialValue, validator) => {
-  const [value, setValue] = useState(initialValue);
-  const onChange = (event) => {
-    const {
-      target: {value}
-    } = event;
-    let willUpdate = true;
-    if (typeof validator === "function") {
-      willUpdate = validator(value);  //value의 유효성 검사
-    }
-    if (willUpdate) {
-      setValue(value);
-    };
+const content = [
+  {
+    tab: "Section 1",
+    content: "I'm the content of the Section 1"
+  },
+  {
+    tab: "Section 2",
+    content: "I'm the content of the Section 2"
+  }
+];
+
+const useTabs = (initialTab, allTabs) => {
+  const [currentIndex, setCurrentIndex] = useState(initialTab);
+  if (!allTabs || !Array.isArray(allTabs)) {  //allTabs가 아니거나 배열이 아니면
+    return;
   };
-  return {value, onChange};
-}
+  
+  return {
+      currentItem: allTabs[currentIndex],
+      changeItem: setCurrentIndex
+  };
+};
 
 const App = () => {
-  const maxLen = value => !value.includes("@"); //@가 포함되지 않으면 업데이트
-  const name = useInput("Mr. ", maxLen);
+  const {currentItem, changeItem} = useTabs(0, content);
   return (
     <div className="App">
-      <h1>Hello</h1>
-      <input placeholder="Name" {...name}></input>
+      {content.map((section, index) => (
+        <button onClick={() => changeItem(index)}>{section.tab}</button>
+      ))}
+    <div>{currentItem.content}</div>
     </div>
   );
 };
-
-class AppUgly extends React.Component {
-  state = {
-    item: 1
-  };
-  render() {
-    const { item } = this.state;
-    return (
-      <div className="App">
-        <h1>Hello {item}</h1>
-        <h2>Start editing to see some magic happen!</h2>
-        <button onClick={this.incrementItem}>Increment</button>
-        <button onClick={this.decrementItem}>Decrement</button>
-      </div>
-    );
-  }
-  incrementItem = () => {
-    this.setState((state) => {
-      return {
-        item: state.item + 1
-      };
-    });
-  };
-  decrementItem = () => {
-    this.setState((state) => {
-      return {
-        item: state.item - 1
-      };
-    });
-  };
-}
 
 const rootElement = document.getElementById("root");
 ReactDOM.render(<App />, rootElement);
