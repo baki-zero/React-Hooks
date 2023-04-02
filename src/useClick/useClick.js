@@ -1,4 +1,3 @@
-import { type } from "@testing-library/user-event/dist/type";
 import React, { useState, useEffect, useRef } from "react";
 import ReactDOM from "react-dom";
 
