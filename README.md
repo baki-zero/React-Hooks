@@ -14,5 +14,5 @@ Collection of sexy React hooks ready to install with NPM
 - [x] useNetwork
 - [x] useScroll
 - [x] useFullscreen
-- [ ] useNotification
+- [x] useNotification
 - [ ] useAxios
