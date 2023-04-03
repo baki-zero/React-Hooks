@@ -5,7 +5,7 @@ const App = () => {
   return (
     <div className="App">
     </div>
-  )
+  );
 };
 
 const rootElement = document.getElementById("root");
