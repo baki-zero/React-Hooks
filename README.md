@@ -10,7 +10,7 @@ Collection of sexy React hooks ready to install with NPM
 - [x] useConfirm
 - [x] usePreventLeave
 - [x] useBeforeLeave
-- [ ] useFadeIn
+- [x] useFadeIn
 - [ ] useNetwork
 - [ ] useScroll
 - [ ] useFullscreen
